@@ -18,10 +18,10 @@ pipeline {
         stage("Build Modules & Build Docker Images") {
             steps {
                 script {
-                    def modules = ['gymservice', 'gymnotificationservice']
-                    for (def module in modules) {
-                        dir("${module}") {
-                            echo "Hi came to this............................"
+                    def moduleNames = findModuleNames()
+                    for (def moduleName in moduleNames) {
+                        dir("${moduleName}") {
+                            echo "Building ${moduleName}..."
                             bat "mvn clean install"
                         }
                     }
@@ -29,4 +29,20 @@ pipeline {
             }
         }
     }
+}
+
+def findModuleNames() {
+    def moduleNames = []
+    def pomFiles = findFiles(glob: '**/pom.xml')
+
+    pomFiles.each { pomFile ->
+        def pomContent = readFile(pomFile.toString())
+        def matcher = (pomContent =~ /<artifactId>(.*?)<\/artifactId>/)
+
+        if (matcher.find()) {
+            moduleNames.add(matcher.group(1))
+        }
+    }
+
+    return moduleNames
 }
