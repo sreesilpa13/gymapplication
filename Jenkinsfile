@@ -21,7 +21,8 @@ pipeline{
                     def modules = ['gymservice', 'gymnotificationservice']
                     for (def module in modules) {
                         dir("${module}") {
-                            // Use 'mvn clean install' to build the Spring Boot project
+                            echo "Hi came to this............................"
+                            sh "pwd"  // Print current working directory
                             sh "mvn clean install"
                         }
                     }
