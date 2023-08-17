@@ -13,10 +13,26 @@
 
   <packaging>pom</packaging>
 
+  <properties>
+    <maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
+  </properties>
+
   <modules>
     <module>gymservice</module>
     <module>gymnotificationservice</module>
   </modules>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <release>17</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
