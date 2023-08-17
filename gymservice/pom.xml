@@ -28,7 +28,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>${project.groupId}/gymservice:${project.version}</name>
+                        <name>gymservice</name>
                     </image>
                 </configuration>
                 <executions>

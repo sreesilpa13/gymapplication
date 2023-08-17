@@ -21,14 +21,14 @@ pipeline {
                     def modules = ['gymservice', 'gymnotificationservice']
                     for (def module in modules) {
                         dir("${module}") {
-                            echo "Hi came to this............................"
+                            echo "Building ${module}..."
                             bat "mvn clean install"
                         }
                     }
                 }
             }
         }
-        stage("Push Docker Images") {
+        stage("Push Docker Images to Docker Hub") {
             steps {
                 script {
                     def dockerHubUsername = 'danvi'
@@ -36,11 +36,12 @@ pipeline {
 
                     def modules = ['gymservice', 'gymnotificationservice']
                     for (def module in modules) {
-                        def imageName = "${project.groupId}/{module}:${project.version}"
-                        echo "{imageName}"
+                        def version = currentBuild.displayName
+                        def imageName = "${dockerHubUsername}/${module}"
+
                         echo "Pushing Docker image: ${imageName}"
                         bat "docker login -u ${dockerHubUsername} -p ${dockerHubPassword}"
-                        bat "docker push ${dockerHubUsername}/${imageName}"
+                        bat "docker push ${imageName}"
                     }
                 }
             }
