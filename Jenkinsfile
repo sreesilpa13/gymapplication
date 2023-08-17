@@ -1,6 +1,10 @@
 pipeline{
     agent any
 
+    environment {
+        PATH = "$PATH:/usr/local/bin"  // Add Docker path to PATH
+    }
+
     tools{
         maven "MavenTool"
     }
