@@ -41,7 +41,7 @@ pipeline {
 
                         echo "Pushing Docker image: ${imageName}"
                         bat "docker login -u ${dockerHubUsername} -p ${dockerHubPassword}"
-                        bat "docker push -t ${dockerHubUsername}/${imageName}"
+                        bat "docker push ${imageName}"
                     }
                 }
             }
