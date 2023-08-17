@@ -1,12 +1,14 @@
 pipeline{
     agent any
+
     tools{
         maven "MavenTool"
     }
+
     stages{
         stage("Checkout"){
             steps{
-                checkout scmGit(branches: [[name: '*/master']], browser: github('https://github.com/sreesilpa13/gymapplication'), extensions: [], userRemoteConfigs: [[url: 'https://github.com/sreesilpa13/gymapplication.git']])
+                checkout scmGit(branches: [[name: '*/main']], browser: github('https://github.com/sreesilpa13/gymapplication'), extensions: [], userRemoteConfigs: [[url: 'https://github.com/sreesilpa13/gymapplication.git']])
             }
         }
         stage("Build Modules"){
