@@ -18,10 +18,11 @@ pipeline {
         stage("Build Modules & Build Docker Images") {
             steps {
                 script {
-                    def moduleNames = findModuleNames()
-                    for (def moduleName in moduleNames) {
-                        dir("${moduleName}") {
-                            echo "Building ${moduleName}..."
+                    def parentPomContent = readFile('pom.xml')
+                    def modules = extractModulesFromParentPom(parentPomContent)
+                    for (def module in modules) {
+                        dir("${module}") {
+                            echo "Building ${module}... Hey Good"
                             bat "mvn clean install"
                         }
                     }
@@ -31,18 +32,7 @@ pipeline {
     }
 }
 
-def findModuleNames() {
-    def moduleNames = []
-    def pomFiles = findFiles(glob: '**/pom.xml')
-
-    pomFiles.each { pomFile ->
-        def pomContent = readFile(pomFile.toString())
-        def matcher = (pomContent =~ /<artifactId>(.*?)<\/artifactId>/)
-
-        if (matcher.find()) {
-            moduleNames.add(matcher.group(1))
-        }
-    }
-
-    return moduleNames
+def extractModulesFromParentPom(pomContent) {
+    def pom = new XmlSlurper().parseText(pomContent)
+    return pom.modules.module.collect { it.text() }
 }
