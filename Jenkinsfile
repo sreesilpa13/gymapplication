@@ -18,11 +18,10 @@ pipeline {
         stage("Build Modules & Build Docker Images") {
             steps {
                 script {
-                    def parentPomContent = readFile('pom.xml')
-                    def modules = extractModulesFromParentPom(parentPomContent)
+                    def modules = ['gymservice', 'gymnotificationservice']
                     for (def module in modules) {
                         dir("${module}") {
-                            echo "Building ${module}... Hey Good"
+                            echo "Hi came to this............................"
                             bat "mvn clean install"
                         }
                     }
@@ -30,9 +29,4 @@ pipeline {
             }
         }
     }
-}
-
-def extractModulesFromParentPom(pomContent) {
-    def pom = new XmlSlurper().parseText(pomContent)
-    return pom.modules.module.collect { it.text() }
 }
