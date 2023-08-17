@@ -36,7 +36,7 @@ pipeline {
                         dir("${module}") {
                             dir("target") {
                                 echo "Came Last"
-                                bat "docker build -t ${module}:latest -f ../../Dockerfile ."
+                                bat "docker build -t danvi/${module} -f ../../Dockerfile ."
                             }
                         }
                     }
