@@ -22,8 +22,7 @@ pipeline{
                     for (def module in modules) {
                         dir("${module}") {
                             echo "Hi came to this............................"
-                            sh "pwd"  // Print current working directory
-                            sh "mvn clean install"
+                            bat "mvn clean install"
                         }
                     }
                 }
