@@ -1,6 +1,10 @@
 pipeline{
     agent any
 
+    environment {
+        PATH = "$PATH:/usr/local/bin"  // Add Docker path to PATH
+    }
+
     tools{
         maven "MavenTool"
     }
@@ -29,8 +33,10 @@ pipeline{
                 script{
                     def modules = ['gymservice', 'gymnotificationservice']
                     for (def module in modules) {
-                        dir("${module}/target") {
-                            docker.build("${module}:latest", "-f ../../Dockerfile .")
+                        dir("${module}") {
+                            dir("target") {
+                                docker.build("${module}:latest", "-f Dockerfile .")
+                            }
                         }
                     }
                 }
