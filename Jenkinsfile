@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage("Checkout"){
             steps{
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sreesilpa13/gymapplication']])
+                checkout scmGit(branches: [[name: '*/master']], browser: github('https://github.com/sreesilpa13/gymapplication'), extensions: [], userRemoteConfigs: [[url: 'https://github.com/sreesilpa13/gymapplication.git']])
             }
         }
         stage("Build Modules"){
