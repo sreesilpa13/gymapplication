@@ -37,7 +37,7 @@ pipeline {
                     def modules = ['gymservice', 'gymnotificationservice']
                     for (def module in modules) {
                         def version = currentBuild.displayName
-                        def imageName = "${dockerHubUsername}/${module}"
+                        def imageName = "${dockerHubUsername}/${module}:${version}"
 
                         echo "Pushing Docker image: ${imageName}"
                         bat "docker login -u ${dockerHubUsername} -p ${dockerHubPassword}"
