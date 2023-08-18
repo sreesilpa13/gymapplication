@@ -28,22 +28,22 @@ pipeline {
                 }
             }
         }
-        stage("Push Docker Images to Docker Hub") {
-            steps {
-                script {
-                    def dockerHubUsername = 'danvi'
-                    def dockerHubPassword = 'DanviShanmuki@2'
-
-                    def modules = ['gymservice', 'gymnotificationservice']
-                    for (def module in modules) {
-                        def imageName = "${module}"
-
-                        echo "Pushing Docker image: ${imageName}"
-                        bat "docker login -u ${dockerHubUsername} -p ${dockerHubPassword}"
-                        bat "docker push ${imageName}"
-                    }
-                }
-            }
-        }
+//         stage("Push Docker Images to Docker Hub") {
+//             steps {
+//                 script {
+//                     def dockerHubUsername = 'danvi'
+//                     def dockerHubPassword = 'DanviShanmuki@2'
+//
+//                     def modules = ['gymservice', 'gymnotificationservice']
+//                     for (def module in modules) {
+//                         def imageName = "${module}"
+//
+//                         echo "Pushing Docker image: ${imageName}"
+//                         bat "docker login -u ${dockerHubUsername} -p ${dockerHubPassword}"
+//                         bat "docker push ${imageName}"
+//                     }
+//                 }
+//             }
+//         }
     }
 }
