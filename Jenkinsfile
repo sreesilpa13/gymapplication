@@ -18,6 +18,7 @@ pipeline {
         stage("Build Modules & Build Docker Images") {
             steps {
                 script {
+//                     def modules = findFiles(glob: '**/pom.xml')
                     def modules = ['gymservice', 'gymnotificationservice']
                     for (def module in modules) {
                         dir("${module}") {
@@ -34,6 +35,7 @@ pipeline {
 //                     def dockerHubUsername = 'danvi'
 //                     def dockerHubPassword = 'DanviShanmuki@2'
 //
+//                      //def modules = findFiles(glob: '**/pom.xml')
 //                     def modules = ['gymservice', 'gymnotificationservice']
 //                     for (def module in modules) {
 //                         def imageName = "${module}"
@@ -46,4 +48,8 @@ pipeline {
 //             }
 //         }
     }
+}
+def findFiles(pomContent) {
+    def pom = new XmlSlurper().parseText(pomContent)
+    return pom.modules.module.collect { it.text() }
 }
